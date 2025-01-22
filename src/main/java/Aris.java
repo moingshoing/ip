@@ -43,9 +43,9 @@ public class Aris {
                             Ui.format("Number is out of range ┐(´ー｀)┌");
                             break;
                         }
-                        if (command.equals("unmark")) {
+                        if (command == Command.UNMARK) {
                             Ui.format(list.get(index - 1).markUndone());
-                        } else if (command.equals("mark")) {
+                        } else if (command == Command.MARK) {
                             Ui.format(list.get(index - 1).markDone());
                         } else {
                             Task task = list.get(index - 1); // a little roundabout, might fix in the future
