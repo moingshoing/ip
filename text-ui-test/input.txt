@@ -1,12 +1,24 @@
+// invalid inputs
 hey
-list
-todo read
-deadline hw /by idk when
-deadline sleep /by 1am
-event swim /from 6th jan 1pm /to 4pm
-list
-mark 4
+todo
+deadline
+event
+mark
+unmark
+delete
 mark 1
 unmark 1
+delete 1
+// test of tasks
+todo hw1
+deadline hw2 /by Friday
+event sleep /from 10pm /to 8am
+todo hw3
+mark 1
+mark 3
+unmark 3
+list
+mark 2
+delete 2
 list
 bye

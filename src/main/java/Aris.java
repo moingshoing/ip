@@ -40,7 +40,7 @@ public class Aris {
                     try {
                         int index = Integer.parseInt(argument);
                         if (index <= 0 || index > list.size()) { // number out of range of list/ empty arg
-                            Ui.format("Number is out of range ┐(´ー｀)┌");
+                            Ui.format("Number is out of range :(");
                             break;
                         }
                         if (command == Command.UNMARK) {
@@ -52,7 +52,7 @@ public class Aris {
                             Ui.format(task.delTask(list, index));
                         }
                     } catch (NumberFormatException e) { // number is not entered after mark/unmark
-                        Ui.format("This is not a number ┐(´ー｀)┌");
+                        Ui.format("This is not a number :(");
                     }
                     break;
 
