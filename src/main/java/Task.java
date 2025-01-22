@@ -2,11 +2,9 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public void addTask(Task[] list, int count) {
+    public String addTask(Task[] list, int count) {
         list[count] = this;
-        System.out.println("Okie task added :>");
-        System.out.println(status());
-        System.out.println("You now have " + (count + 1) + " task(s) in the list");
+        return String.format("Okei task added :>\n%s\nYou now have %d task(s) in the list", status(), count + 1);
     }
 
     public String status() {

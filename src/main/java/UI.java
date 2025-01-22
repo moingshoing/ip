@@ -6,10 +6,10 @@ public class UI {
     }
 
     public void greet() {
-        format("Panpakapan! I'm Aris!\nWhat can I do for you?");
+        format("Panpakapan! I'm Aris!\n|･ω･｀) < hi.");
     }
 
     public void exit() {
-        format("NOOOOOO COME BACK PLEASE :(");
+        format("Time to go to bed (－_－) zzZ");
     }
 }
