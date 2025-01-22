@@ -64,9 +64,9 @@ public class Aris {
                         break;
                     }
                     Task task;
-                    if (command.equals("todo")) {
+                    if (command == Command.TODO) {
                         task = new Todo(argument);
-                    } else if (command.equals("deadline")) {
+                    } else if (command == Command.DEADLINE) {
                         task = new Deadline(argument);
                     } else {
                         task = new Event(argument);
