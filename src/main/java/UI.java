@@ -6,7 +6,7 @@ public class UI {
     }
 
     public void greet() {
-        format("Panpakapan! I'm Aris! \nWhat can I do for you?");
+        format("Panpakapan! I'm Aris!\nWhat can I do for you?");
     }
 
     public void exit() {
