@@ -47,11 +47,34 @@ public class Aris {
                 continue;
             }
 
-            Ui.format("added: " + input);
+            if (input.contains("todo")) {
+                String str = input.split(" ", 2)[1];
+                Task task = new Todo(str);
+                task.addTask(list, count);
+                count++;
+                input = userInput.nextLine();
+                continue;
+            }
 
-            list[count] = new Task(input);
-            count++;
+            if (input.contains("deadline")) {
+                String str = input.split(" ", 2)[1];
+                Task task = new Deadline(str);
+                task.addTask(list, count);
+                count++;
+                input = userInput.nextLine();
+                continue;
+            }
 
+            if (input.contains("event")) {
+                String str = input.split(" ", 2)[1];
+                Task task = new Event(str);
+                task.addTask(list, count);
+                count++;
+                input = userInput.nextLine();
+                continue;
+            }
+
+            Ui.format(input);
             input = userInput.nextLine();
         }
 

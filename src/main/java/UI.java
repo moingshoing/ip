@@ -1,5 +1,5 @@
 public class UI {
-    String hline = "____________________________________________________________\n";
+    public String hline = "____________________________________________________________\n";
 
     public void format(String s) {
         System.out.println(hline + s + "\n" + hline);
