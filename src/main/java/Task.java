@@ -1,10 +1,17 @@
+import java.util.ArrayList;
+
 public class Task {
     protected String description;
     protected boolean isDone;
 
-    public String addTask(Task[] list, int count) {
-        list[count] = this;
-        return String.format("Okei task added :>\n%s\nYou now have %d task(s) in the list", status(), count + 1);
+    public String addTask(ArrayList<Task> list) {
+        list.add(this);
+        return String.format("Okei this task is added:\n%s\nYou now have %d task(s) in the list", status(), list.size());
+    }
+
+    public String delTask(ArrayList<Task> list, int index) {
+        list.remove(index - 1);
+        return String.format("Okei this task is deleted:\n%s\nYou now have %d task(s) in the list", status(), list.size());
     }
 
     public String status() {

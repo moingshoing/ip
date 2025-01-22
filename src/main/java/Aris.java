@@ -1,4 +1,5 @@
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class Aris {
@@ -6,8 +7,7 @@ public class Aris {
         UI Ui = new UI(); // UI for format messages
         Ui.greet(); // greet
 
-        Task[] list = new Task[100];
-        int count = 0;
+        ArrayList<Task> list = new ArrayList<Task>(); // use of arraylist to store tasks
 
         Scanner userInput =  new Scanner(System.in); // read user input
 
@@ -15,43 +15,51 @@ public class Aris {
             String input =  userInput.nextLine();
 
             String[] parts = input.split(" ", 2); // split command and argument
-            String command = parts[0];
+            String commandStr = parts[0];
             String argument = parts.length > 1 ? parts[1] : "";
 
+            Command command = Command.convert(commandStr); // convert input to enum
+
             switch(command) { // use of switch because else if is ugly
-                case "list":
-                    StringBuilder s = new StringBuilder(); // using StringBuilder for efficient code (tbh doesn't affect much)
-                    for (int i = 1; i < count + 1; i++) {
-                        Task item = list[i - 1];
+                case LIST:
+                    StringBuilder s = new StringBuilder(); // StringBuilder for efficiency
+                    int i = 1;
+                    for (Iterator<Task> it = list.iterator(); it.hasNext(); i++) {
+                        Task item = it.next();
                         s.append(i).append(".").append(item.status());
-                        if (i < count) { // line break except for last item; for formatting purposes; not much of an impact
+                        if (it.hasNext()) { // line break except for last item; for formatting purposes
                             s.append("\n");
                         }
                     }
                     Ui.format(s.toString());
                     break;
 
-                case "mark":
-                case "unmark":
+                case MARK:
+                case UNMARK:
+                case DELETE:
                     try {
                         int index = Integer.parseInt(argument);
-                        if (index <= 0 || index > count) { // number out of range of list
+                        if (index <= 0 || index > list.size()) { // number out of range of list/ empty arg
                             Ui.format("Number is out of range ┐(´ー｀)┌");
                             break;
                         }
                         if (command.equals("unmark")) {
-                            Ui.format(list[index - 1].markUndone());
+                            Ui.format(list.get(index - 1).markUndone());
+                        } else if (command.equals("mark")) {
+                            Ui.format(list.get(index - 1).markDone());
                         } else {
-                            Ui.format(list[index - 1].markDone());
+                            Task task = list.get(index - 1); // a little roundabout, might fix in the future
+                            Ui.format(task.delTask(list, index));
                         }
                     } catch (NumberFormatException e) { // number is not entered after mark/unmark
                         Ui.format("This is not a number ┐(´ー｀)┌");
                     }
                     break;
-                case "todo":
-                case "deadline":
-                case "event":
-                    if (argument.isEmpty()) {
+
+                case TODO:
+                case DEADLINE:
+                case EVENT:
+                    if (argument.isEmpty()) { // empty argument
                         Ui.format("Try doing something instead ┐(´ー｀)┌");
                         break;
                     }
@@ -63,13 +71,15 @@ public class Aris {
                     } else {
                         task = new Event(argument);
                     }
-                    Ui.format(task.addTask(list, count));
-                    count++;
+                    Ui.format(task.addTask(list));
                     break;
-                case "bye":
+
+                case BYE: // exit program
                     Ui.exit();
                     return;
-                default:
+
+                case UNKNOWN:
+                default: // any other text
                     Ui.format("Sorry forgot to code this bit ┐(´ー｀)┌");
             }
         }
