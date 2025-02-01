@@ -6,10 +6,12 @@ public class Task {
 
     public String addTask(ArrayList<Task> list) {
         list.add(this);
+        // add task to duke.txt
         return String.format("Okei this task is added:\n%s\nYou now have %d task(s) in the list", status(), list.size());
     }
 
     public String delTask(ArrayList<Task> list, int index) {
+        // del task from duke.txt
         list.remove(index - 1);
         return String.format("Okei this task is deleted:\n%s\nYou now have %d task(s) in the list", status(), list.size());
     }

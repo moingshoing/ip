@@ -1,4 +1,4 @@
-public class UI {
+public class Ui {
     public String hline = "____________________________________________________________\n";
 
     public void format(String s) {
