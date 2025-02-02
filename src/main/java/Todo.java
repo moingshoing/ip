@@ -9,6 +9,7 @@ public class Todo extends Task {
         this.isDone = (doneInt != 0);
     }
 
+    @Override
     public String status() {
         return "[T]" + (isDone ? "[X] " : "[ ] ") + description;
     }

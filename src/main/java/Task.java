@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String taskType;
 
     public String addTask(ArrayList<Task> list) {
         list.add(this);
@@ -18,6 +19,10 @@ public class Task {
 
     public String status() {
         return isDone ? ("[X] " + description) : ("[ ] " + description);
+    }
+
+    public String fileFormat() {
+        return "T | " + (isDone ? "1" : "0") + " | " + description;
     }
 
     public String markDone() {
