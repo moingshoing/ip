@@ -8,26 +8,16 @@ public class Deadline extends Task {
 
     public Deadline(String description, int doneInt, String deadline) {
         this.description = description;
-        this.deadline = deadline;
-        try {
-            this.deadline = dateFormatter();
-        } catch (DateTimeParseException ignored) {
-        } finally {
-            this.deadlineString = String.format(" (by: %s)", deadline);
-        }
+        this.deadline = dateFormatter(deadline);
+        this.deadlineString = String.format(" (by: %s)", this.deadline);
         this.isDone = (doneInt != 0);
     }
 
     public Deadline(String description) {
         String[] details = description.split(" /by ", 2);
         this.description = details[0];
-        this.deadline = details[1];
-        try {
-            this.deadline = dateFormatter();
-        } catch (DateTimeParseException ignored) {
-        } finally {
-            this.deadlineString = String.format(" (by: %s)", deadline);
-        }
+        this.deadline = dateFormatter(details[1]);
+        this.deadlineString = String.format(" (by: %s)", this.deadline);
         this.isDone = false;
     }
 
@@ -41,8 +31,12 @@ public class Deadline extends Task {
         return "D | " + (isDone ? "1" : "0") + " | " + description + String.format(" | %s", deadline);
     }
 
-    public String dateFormatter() throws DateTimeParseException {
-        LocalDate date = LocalDate.parse(deadline);
-        return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    public String dateFormatter(String deadline) {
+        try {
+            LocalDate date = LocalDate.parse(deadline);
+            return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        } catch (DateTimeParseException e) {
+            return deadline;
+        }
     }
 }
