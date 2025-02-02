@@ -4,6 +4,10 @@ import java.util.Iterator;
 public class TaskList {
     private ArrayList<Task> list;
 
+    public TaskList() {
+        this.list = new ArrayList<Task>();
+    }
+
     public String printList() {
         StringBuilder s = new StringBuilder(); // StringBuilder for efficiency
         int i = 1;
@@ -50,7 +54,7 @@ public class TaskList {
         }
     }
 
-    public void addTask() {
-
+    public String addTask(Task task) {
+        return task.addTask(list);
     }
 }

@@ -75,7 +75,7 @@ public class Aris {
                     } else {
                         task = new Event(argument);
                     }
-                    arisUi.format(task.addTask(list));
+                    arisUi.format(list.addTask(task));
                     break;
 
                 case BYE: // exit program
@@ -120,24 +120,14 @@ public class Aris {
                 String[] period = periodString.split("-", 2);
                 task = new Event(eventDescription, isDone, period[0], period[1]);
             }
-            task.addTask(list);
+            list.addTask(task);
         }
     }
 
     private void saveFile() throws IOException {
         ensureFileExists();
-        StringBuilder s = new StringBuilder(); // StringBuilder for efficiency
-        int i = 1;
-        for (Iterator<Task> it = list.iterator(); it.hasNext(); i++) {
-            Task item = it.next();
-            s.append(item.fileFormat());
-            if (it.hasNext()) { // line break except for last item; for formatting purposes
-                s.append("\n");
-            }
-        }
-
         FileWriter fw = new FileWriter("./data/Aris.txt");
-        fw.write(String.valueOf(s));
+        fw.write(String.valueOf(list.printList()));
         fw.close();
     }
 
