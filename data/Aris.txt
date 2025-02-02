@@ -1,5 +1,1 @@
-T | 0 | hw
-D | 1 | project | sun
-E | 1 | sleep | s-m
-T | 0 | project
-E | 1 | Complete No Nut | 1/11/2024-1/12/2024
+D | 0 | eat | Oct 1 2019

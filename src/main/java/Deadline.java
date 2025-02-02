@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
     protected String deadline;
     protected String deadlineString;
@@ -5,7 +9,12 @@ public class Deadline extends Task {
     public Deadline(String description, int doneInt, String deadline) {
         this.description = description;
         this.deadline = deadline;
-        this.deadlineString = String.format(" (by: %s)", deadline);
+        try {
+            this.deadline = dateFormatter();
+        } catch (DateTimeParseException ignored) {
+        } finally {
+            this.deadlineString = String.format(" (by: %s)", deadline);
+        }
         this.isDone = (doneInt != 0);
     }
 
@@ -13,7 +22,12 @@ public class Deadline extends Task {
         String[] details = description.split(" /by ", 2);
         this.description = details[0];
         this.deadline = details[1];
-        this.deadlineString = String.format(" (by: %s)", deadline);
+        try {
+            this.deadline = dateFormatter();
+        } catch (DateTimeParseException ignored) {
+        } finally {
+            this.deadlineString = String.format(" (by: %s)", deadline);
+        }
         this.isDone = false;
     }
 
@@ -25,5 +39,10 @@ public class Deadline extends Task {
     @Override
     public String fileFormat() {
         return "D | " + (isDone ? "1" : "0") + " | " + description + String.format(" | %s", deadline);
+    }
+
+    public String dateFormatter() throws DateTimeParseException {
+        LocalDate date = LocalDate.parse(deadline);
+        return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 }
