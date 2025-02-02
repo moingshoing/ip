@@ -7,11 +7,11 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class Aris {
-    ArrayList<Task> list; // use of arraylist to store tasks
+    TaskList list; // use of arraylist to store tasks
     Scanner userInput =  new Scanner(System.in); // scanner to read input
 
     private Aris() {
-        this.list = new ArrayList<Task>();
+        this.list = new TaskList();
     }
 
     public static void main(String[] args) {
@@ -24,7 +24,7 @@ public class Aris {
         arisUi.greet(); // greet
 
         try {
-            loadFile(arisUi);
+            loadFile();
         } catch(FileNotFoundException e) {
             arisUi.format("No file found ┐(´ー｀)┌");
         }
@@ -40,16 +40,7 @@ public class Aris {
 
             switch(command) { // use of switch because else if is ugly
                 case LIST:
-                    StringBuilder s = new StringBuilder(); // StringBuilder for efficiency
-                    int i = 1;
-                    for (Iterator<Task> it = list.iterator(); it.hasNext(); i++) {
-                        Task item = it.next();
-                        s.append(i).append(".").append(item.status());
-                        if (it.hasNext()) { // line break except for last item; for formatting purposes
-                            s.append("\n");
-                        }
-                    }
-                    arisUi.format(s.toString());
+                    arisUi.format(list.printList());
                     break;
 
                 case MARK:
@@ -57,17 +48,12 @@ public class Aris {
                 case DELETE:
                     try {
                         int index = Integer.parseInt(argument);
-                        if (index <= 0 || index > list.size()) { // number out of range of list/ empty arg
-                            arisUi.format("Number is out of range ┐(´ー｀)┌");
-                            break;
-                        }
                         if (command == Command.UNMARK) {
-                            arisUi.format(list.get(index - 1).markUndone());
+                            arisUi.format(list.markTaskUndone(index));
                         } else if (command == Command.MARK) {
-                            arisUi.format(list.get(index - 1).markDone());
+                            arisUi.format(list.markTaskDone(index));
                         } else {
-                            Task task = list.get(index - 1); // a little roundabout, might fix in the future
-                            arisUi.format(task.delTask(list, index));
+                            arisUi.format(list.deleteTask(index));
                         }
                     } catch (NumberFormatException e) { // number is not entered after mark/unmark
                         arisUi.format("This is not a number ┐(´ー｀)┌");
@@ -108,7 +94,7 @@ public class Aris {
         }
     }
 
-    private void loadFile(Ui arisUi) throws FileNotFoundException {
+    private void loadFile() throws FileNotFoundException {
         File f = new File("./data/Aris.txt");
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
