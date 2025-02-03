@@ -21,6 +21,19 @@ public class TaskList {
         return s.toString();
     }
 
+    public String toFile() {
+        StringBuilder s = new StringBuilder(); // StringBuilder for efficiency
+        int i = 1;
+        for (Iterator<Task> it = list.iterator(); it.hasNext(); i++) {
+            Task item = it.next();
+            s.append(item.fileFormat());
+            if (it.hasNext()) { // line break except for last item; for formatting purposes
+                s.append("\n");
+            }
+        }
+        return s.toString();
+    }
+
     public void isIndexValid(int index) throws IllegalArgumentException {
         if (index <= 0 || index > list.size()) { // number out of range of list/ empty arg
             throw new IllegalArgumentException();

@@ -7,27 +7,30 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class Aris {
-    TaskList list; // use of arraylist to store tasks
+    private Ui arisUi;
+    private TaskList list; // use of arraylist to store tasks
+    private Storage storage;
     Scanner userInput =  new Scanner(System.in); // scanner to read input
 
-    private Aris() {
+    public Aris(String filePath) {
         this.list = new TaskList();
-    }
-
-    public static void main(String[] args) {
-        Aris aris = new Aris();
-        aris.runAris();
-    }
-
-    private void runAris() {
-        Ui arisUi = new Ui(); // UI for format messages
-        arisUi.greet(); // greet
-
+        this.storage = new Storage(filePath);
+        this.arisUi = new Ui();
         try {
-            loadFile();
+            storage.loadFile(list);
         } catch(FileNotFoundException e) {
             arisUi.format("No file found ┐(´ー｀)┌");
         }
+    }
+
+    public static void main(String[] args) {
+        Aris aris = new Aris("./data/Aris.txt");
+        aris.run();
+    }
+
+    private void run() {
+        Ui arisUi = new Ui(); // UI for format messages
+        arisUi.greet(); // greet
 
         while(true) {
             String input =  userInput.nextLine();
@@ -87,59 +90,10 @@ public class Aris {
                     arisUi.format("Sorry forgot to code this bit ┐(´ー｀)┌");
             }
             try {
-                saveFile();
+                storage.saveFile(list);
             } catch (IOException e) {
                 arisUi.format("Something went wrong ┐(´ー｀)┌");
             }
-        }
-    }
-
-    private void loadFile() throws FileNotFoundException {
-        File f = new File("./data/Aris.txt");
-        Scanner s = new Scanner(f);
-        while (s.hasNext()) {
-            Task task;
-            String input = s.nextLine();
-            String[] parts = input.split(" \\| ", 3); // split task type, isDone and task
-
-            String taskType = parts[0];
-            int isDone = Integer.parseInt(parts[1]);
-            String taskStr = parts[2];
-
-            if (taskType.equals("T")) {
-                task = new Todo(taskStr, isDone);
-            } else if (taskType.equals("D")) {
-                String[] deadlinePart = taskStr.split(" \\| ", 2);
-                String deadlineDescription = deadlinePart[0];
-                String deadline = deadlinePart[1];
-                task = new Deadline(deadlineDescription, isDone, deadline);
-            } else {
-                String[] eventPart = taskStr.split(" \\| ", 2);
-                String eventDescription = eventPart[0];
-                String periodString = eventPart[1];
-                String[] period = periodString.split("-", 2);
-                task = new Event(eventDescription, isDone, period[0], period[1]);
-            }
-            list.addTask(task);
-        }
-    }
-
-    private void saveFile() throws IOException {
-        ensureFileExists();
-        FileWriter fw = new FileWriter("./data/Aris.txt");
-        fw.write(String.valueOf(list.printList()));
-        fw.close();
-    }
-
-    private static void ensureFileExists() throws IOException {
-        File directory = new File("./data/");
-        if (!directory.exists()) {
-            directory.mkdirs();  // Create the directory if it doesn't exist
-        }
-
-        File file = new File("./data/Aris.txt");
-        if (!file.exists()) {
-            file.createNewFile();  // Create the file if it doesn't exist
         }
     }
 }
