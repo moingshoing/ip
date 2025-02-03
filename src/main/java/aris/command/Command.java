@@ -1,3 +1,5 @@
+package aris.command;
+
 public enum Command {
     LIST,
     MARK,

@@ -1,9 +1,17 @@
-import java.io.File;
+package aris;
+
+import aris.command.Command;
+import aris.list.TaskList;
+import aris.parser.Parser;
+import aris.storage.Storage;
+import aris.task.Deadline;
+import aris.task.Event;
+import aris.task.Task;
+import aris.task.Todo;
+import aris.ui.Ui;
+
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class Aris {
@@ -24,7 +32,7 @@ public class Aris {
     }
 
     public static void main(String[] args) {
-        Aris aris = new Aris("./data/Aris.txt");
+        Aris aris = new Aris("./data/aris.Aris.txt");
         aris.run();
     }
 

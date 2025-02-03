@@ -1,3 +1,7 @@
+package aris.list;
+
+import aris.task.Task;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 

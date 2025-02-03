@@ -1,8 +1,15 @@
+package aris.storage;
+
+import aris.list.TaskList;
+import aris.task.Deadline;
+import aris.task.Event;
+import aris.task.Task;
+import aris.task.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class Storage {
@@ -44,7 +51,7 @@ public class Storage {
 
     public void saveFile(TaskList list) throws IOException {
         ensureFileExists();
-        FileWriter fw = new FileWriter("./data/Aris.txt");
+        FileWriter fw = new FileWriter("./data/aris.Aris.txt");
         fw.write(String.valueOf(list.toFile()));
         fw.close();
     }
@@ -55,7 +62,7 @@ public class Storage {
             directory.mkdirs();  // Create the directory if it doesn't exist
         }
 
-        File file = new File("./data/Aris.txt");
+        File file = new File("./data/aris.Aris.txt");
         if (!file.exists()) {
             file.createNewFile();  // Create the file if it doesn't exist
         }

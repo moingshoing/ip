@@ -1,3 +1,5 @@
+package aris.ui;
+
 public class Ui {
     public String hline = "____________________________________________________________\n";
 
@@ -6,7 +8,7 @@ public class Ui {
     }
 
     public void greet() {
-        format("Panpakapan! I'm Aris!\n|･ω･｀) < hi.");
+        format("Panpakapan! I'm aris.Aris!\n|･ω･｀) < hi.");
     }
 
     public void exit() {
