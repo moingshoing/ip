@@ -15,8 +15,8 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Aris {
-    private Ui arisUi;
-    private TaskList list; // use of arraylist to store tasks
+    Ui arisUi;
+    TaskList list; // use of arraylist to store tasks
     private Storage storage;
     Scanner userInput =  new Scanner(System.in); // scanner to read input
 
@@ -32,7 +32,7 @@ public class Aris {
     }
 
     public static void main(String[] args) {
-        Aris aris = new Aris("./data/aris.Aris.txt");
+        Aris aris = new Aris("./data/Aris.txt");
         aris.run();
     }
 

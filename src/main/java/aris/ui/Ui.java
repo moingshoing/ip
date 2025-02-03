@@ -1,9 +1,11 @@
 package aris.ui;
 
 public class Ui {
-    public String hline = "____________________________________________________________\n";
+    private String hline = "____________________________________________________________\n";
+    private String lastMessage = "";
 
     public void format(String s) {
+        lastMessage = s;
         System.out.println(hline + s + "\n" + hline);
     }
 
@@ -13,5 +15,9 @@ public class Ui {
 
     public void exit() {
         format("Time to go to bed (-_-) zzZ");
+    }
+
+    public String getLastMessage() {
+        return lastMessage;
     }
 }
