@@ -34,12 +34,8 @@ public class Aris {
 
         while(true) {
             String input =  userInput.nextLine();
-
-            String[] parts = input.split(" ", 2); // split command and argument
-            String commandStr = parts[0];
-            String argument = parts.length > 1 ? parts[1] : "";
-
-            Command command = Command.convert(commandStr); // convert input to enum
+            Command command = Parser.parseCommand(input);
+            String argument = Parser.parseArgument(input);
 
             switch(command) { // use of switch because else if is ugly
                 case LIST:
