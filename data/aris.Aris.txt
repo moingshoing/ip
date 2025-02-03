@@ -1,0 +1,3 @@
+T | 0 | hw
+E | 0 | hw | Oct 10 2019-Oct 21 2020
+D | 0 | hw | Sun

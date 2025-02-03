@@ -27,7 +27,7 @@ public class Aris {
         try {
             storage.loadFile(list);
         } catch(FileNotFoundException e) {
-            arisUi.format("No file found ┐(´ー｀)┌");
+            arisUi.format("No file found ¯\\_(._.)_/¯");
         }
     }
 
@@ -63,7 +63,7 @@ public class Aris {
                             arisUi.format(list.deleteTask(index));
                         }
                     } catch (NumberFormatException e) { // number is not entered after mark/unmark
-                        arisUi.format("This is not a number ┐(´ー｀)┌");
+                        arisUi.format("This is not a number ¯\\_(._.)_/¯");
                     }
                     break;
 
@@ -71,7 +71,7 @@ public class Aris {
                 case DEADLINE:
                 case EVENT:
                     if (argument.isEmpty()) { // empty argument
-                        arisUi.format("Try doing something instead ┐(´ー｀)┌");
+                        arisUi.format("Try doing something instead ¯\\_(._.)_/¯");
                         break;
                     }
                     Task task;
@@ -91,12 +91,12 @@ public class Aris {
 
                 case UNKNOWN:
                 default: // any other text
-                    arisUi.format("Sorry forgot to code this bit ┐(´ー｀)┌");
+                    arisUi.format("Sorry forgot to code this bit ¯\\_(._.)_/¯");
             }
             try {
                 storage.saveFile(list);
             } catch (IOException e) {
-                arisUi.format("Something went wrong ┐(´ー｀)┌");
+                arisUi.format("Something went wrong ¯\\_(._.)_/¯");
             }
         }
     }

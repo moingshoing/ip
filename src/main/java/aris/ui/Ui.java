@@ -12,6 +12,6 @@ public class Ui {
     }
 
     public void exit() {
-        format("Time to go to bed (－_－) zzZ");
+        format("Time to go to bed (-_-) zzZ");
     }
 }
