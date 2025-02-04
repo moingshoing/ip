@@ -4,6 +4,7 @@ package aris.command;
  * Represents a command that can be issued to the chatbot.
  */
 public enum Command {
+    FIND,
     LIST,
     MARK,
     UNMARK,

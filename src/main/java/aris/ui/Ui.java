@@ -6,7 +6,7 @@ public class Ui {
 
     public void format(String s) {
         lastMessage = s;
-        System.out.println(hline + s + "\n" + hline);
+        System.out.println(hline + s + "\n");
     }
 
     public void greet() {

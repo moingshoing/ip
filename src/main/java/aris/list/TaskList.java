@@ -110,4 +110,23 @@ public class TaskList {
     public String addTask(Task task) {
         return task.addTask(list);
     }
+
+    public String findTask(String keyword) {
+        StringBuilder s = new StringBuilder(); // StringBuilder for efficiency
+        int i = 1;
+        for (Iterator<Task> it = list.iterator(); it.hasNext(); i++) {
+            Task item = it.next();
+            if (item.containsKeyword(keyword)) {
+                s.append(i).append(".").append(item.status());
+                if (it.hasNext()) {
+                    s.append("\n");
+                }
+            }
+        }
+
+        if (s.toString().isEmpty()) {
+            return "No results found ¯\\_(._.)_/¯";
+        }
+        return s.toString();
+    }
 }
