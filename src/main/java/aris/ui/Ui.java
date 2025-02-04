@@ -10,7 +10,7 @@ public class Ui {
     }
 
     public void greet() {
-        format("Panpakapan! I'm aris.Aris!\n|･ω･｀) < hi.");
+        format("Hello! I'm Aris!\n|･ω･｀) < hi.");
     }
 
     public void exit() {
