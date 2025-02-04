@@ -1,6 +1,7 @@
 package aris.command;
 
 public enum Command {
+    FIND,
     LIST,
     MARK,
     UNMARK,

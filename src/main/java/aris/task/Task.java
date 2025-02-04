@@ -36,4 +36,9 @@ public class Task {
         this.isDone = false;
         return "Oh wow >:( Go finish this up:\n" + this.status();
     }
+
+    public boolean containsKeyword(String k) {
+        String keyword = k.toLowerCase();
+        return this.description.contains(keyword);
+    }
 }

@@ -46,6 +46,10 @@ public class Aris {
             String argument = Parser.parseArgument(input);
 
             switch(command) { // use of switch because else if is ugly
+            case FIND:
+                arisUi.format(list.findTask(argument));
+                break;
+
                 case LIST:
                     arisUi.format(list.printList());
                     break;

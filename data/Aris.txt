@@ -2,3 +2,4 @@ T | 1 | sleep
 D | 0 | eat food | Oct 10 2019
 E | 1 | hw | 2pm-4pm
 T | 1 | 2103 ip
+D | 1 | submit hw | 6pm
