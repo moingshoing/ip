@@ -37,61 +37,65 @@ public class Aris {
     }
 
     void run() {
-        Ui arisUi = new Ui(); // UI for format messages
-        arisUi.greet(); // greet
+        Ui arisUi = new Ui();
+        arisUi.greet(); // Greet
 
         while(true) {
             String input =  userInput.nextLine();
             Command command = Parser.parseCommand(input);
             String argument = Parser.parseArgument(input);
 
-            switch(command) { // use of switch because else if is ugly
-                case LIST:
+            switch(command) {
+            case LIST:
                     arisUi.format(list.printList());
                     break;
-
-                case MARK:
-                case UNMARK:
-                case DELETE:
-                    try {
-                        int index = Integer.parseInt(argument);
-                        if (command == Command.UNMARK) {
-                            arisUi.format(list.markTaskUndone(index));
-                        } else if (command == Command.MARK) {
-                            arisUi.format(list.markTaskDone(index));
-                        } else {
-                            arisUi.format(list.deleteTask(index));
-                        }
-                    } catch (NumberFormatException e) { // number is not entered after mark/unmark
-                        arisUi.format("This is not a number ¯\\_(._.)_/¯");
-                    }
-                    break;
-
-                case TODO:
-                case DEADLINE:
-                case EVENT:
-                    if (argument.isEmpty()) { // empty argument
-                        arisUi.format("Try doing something instead ¯\\_(._.)_/¯");
-                        break;
-                    }
-                    Task task;
-                    if (command == Command.TODO) {
-                        task = new Todo(argument);
-                    } else if (command == Command.DEADLINE) {
-                        task = new Deadline(argument);
+            case MARK:
+                // Fallthrough
+            case UNMARK:
+                // Fallthrough
+            case DELETE:
+                try {
+                    int index = Integer.parseInt(argument);
+                    if (command == Command.UNMARK) {
+                        arisUi.format(list.markTaskUndone(index));
+                    } else if (command == Command.MARK) {
+                        arisUi.format(list.markTaskDone(index));
                     } else {
-                        task = new Event(argument);
+                        arisUi.format(list.deleteTask(index));
                     }
-                    arisUi.format(list.addTask(task));
+                } catch (NumberFormatException e) { // number is not entered after mark/unmark
+                    arisUi.format("This is not a number ¯\\_(._.)_/¯");
+                }
+                break;
+
+            case TODO:
+                // Fallthrough
+            case DEADLINE:
+                // Fallthrough
+            case EVENT:
+                if (argument.isEmpty()) { // empty argument
+                    arisUi.format("Try doing something instead ¯\\_(._.)_/¯");
                     break;
+                }
+                Task task;
+                if (command == Command.TODO) {
+                    task = new Todo(argument);
+                } else if (command == Command.DEADLINE) {
+                    task = new Deadline(argument);
+                } else {
+                    task = new Event(argument);
+                }
+                arisUi.format(list.addTask(task));
+                break;
 
-                case BYE: // exit program
-                    arisUi.exit();
-                    return;
+            case BYE: // Exit program
+                arisUi.exit();
+                return;
 
-                case UNKNOWN:
-                default: // any other text
-                    arisUi.format("Sorry forgot to code this bit ¯\\_(._.)_/¯");
+            case UNKNOWN:
+                // Fallthrough
+            default: // Any other text
+                arisUi.format("Sorry forgot to code this bit ¯\\_(._.)_/¯");
             }
             try {
                 storage.saveFile(list);
