@@ -56,19 +56,15 @@ public class Aris {
             Command command = Parser.parseCommand(input);
             String argument = Parser.parseArgument(input);
 
-<<<<<<< HEAD
             switch(command) {
-            case LIST:
-=======
-            switch(command) { // use of switch because else if is ugly
             case FIND:
                 arisUi.format(list.findTask(argument));
                 break;
 
-                case LIST:
->>>>>>> branch-Level-9
-                    arisUi.format(list.printList());
-                    break;
+            case LIST:
+                arisUi.format(list.printList());
+                break;
+
             case MARK:
                 // Fallthrough
             case UNMARK:
