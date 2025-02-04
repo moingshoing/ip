@@ -31,13 +31,17 @@ public class Storage {
      * @param list The TaskList to load tasks into.
      * @throws FileNotFoundException If the file does not exist.
      */
-    public void loadFile(TaskList list) throws FileNotFoundException {
+    public void loadFile(TaskList list) throws FileNotFoundException, IllegalArgumentException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
             Task task;
             String input = s.nextLine();
             String[] parts = input.split(" \\| ", 3); // split task type, isDone and task
+
+            if (parts.length != 3) {
+                throw new IllegalArgumentException();
+            }
 
             String taskType = parts[0];
             int isDone = Integer.parseInt(parts[1]);
@@ -50,13 +54,16 @@ public class Storage {
                 String deadlineDescription = deadlinePart[0];
                 String deadline = deadlinePart[1];
                 task = new Deadline(deadlineDescription, isDone, deadline);
-            } else {
+            } else if (taskType.equals("E")){
                 String[] eventPart = taskStr.split(" \\| ", 2);
                 String eventDescription = eventPart[0];
                 String periodString = eventPart[1];
                 String[] period = periodString.split("-", 2);
                 task = new Event(eventDescription, isDone, period[0], period[1]);
+            } else {
+                throw new IllegalArgumentException();
             }
+
             list.addTask(task);
         }
     }

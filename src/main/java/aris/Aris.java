@@ -36,6 +36,8 @@ public class Aris {
             storage.loadFile(list);
         } catch(FileNotFoundException e) {
             arisUi.format("No file found ¯\\_(._.)_/¯");
+        } catch(IllegalArgumentException e) {
+            arisUi.format("File corrupted ¯\\_(._.)_/¯");
         }
     }
 
