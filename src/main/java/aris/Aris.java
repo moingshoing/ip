@@ -15,9 +15,9 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Aris {
-    Ui arisUi;
-    TaskList list; // use of arraylist to store tasks
-    private Storage storage;
+    protected Ui arisUi;
+    protected TaskList list; // use of arraylist to store tasks
+    protected Storage storage;
     Scanner userInput =  new Scanner(System.in); // scanner to read input
 
     public Aris(String filePath) {
@@ -36,7 +36,7 @@ public class Aris {
         aris.run();
     }
 
-    private void run() {
+    void run() {
         Ui arisUi = new Ui(); // UI for format messages
         arisUi.greet(); // greet
 

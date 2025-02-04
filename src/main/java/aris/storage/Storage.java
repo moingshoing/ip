@@ -51,7 +51,7 @@ public class Storage {
 
     public void saveFile(TaskList list) throws IOException {
         ensureFileExists();
-        FileWriter fw = new FileWriter("./data/aris.Aris.txt");
+        FileWriter fw = new FileWriter(filePath);
         fw.write(String.valueOf(list.toFile()));
         fw.close();
     }
@@ -62,7 +62,7 @@ public class Storage {
             directory.mkdirs();  // Create the directory if it doesn't exist
         }
 
-        File file = new File("./data/aris.Aris.txt");
+        File file = new File("./data/Aris.txt");
         if (!file.exists()) {
             file.createNewFile();  // Create the file if it doesn't exist
         }
