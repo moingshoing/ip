@@ -12,13 +12,25 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Handles loading and saving tasks to a file for persistent storage.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a Storage instance with the specified file path.
+     * @param filePath The path to the file used for storage.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from a file into the provided TaskList.
+     * @param list The TaskList to load tasks into.
+     * @throws FileNotFoundException If the file does not exist.
+     */
     public void loadFile(TaskList list) throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
@@ -49,6 +61,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the current tasks in the TaskList to a file.
+     * @param list The TaskList containing tasks to be saved.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
     public void saveFile(TaskList list) throws IOException {
         ensureFileExists();
         FileWriter fw = new FileWriter(filePath);
@@ -56,6 +73,10 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Ensures the necessary directory and file exist before saving tasks.
+     * @throws IOException If an error occurs while creating the file.
+     */
     private static void ensureFileExists() throws IOException {
         File directory = new File("./data/");
         if (!directory.exists()) {

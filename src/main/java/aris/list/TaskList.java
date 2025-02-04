@@ -5,6 +5,9 @@ import aris.task.Task;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Represents a list of tasks and provides methods for manipulating tasks.
+ */
 public class TaskList {
     private ArrayList<Task> list;
 
@@ -12,6 +15,10 @@ public class TaskList {
         this.list = new ArrayList<Task>();
     }
 
+    /**
+     * Returns a formatted string representation of all tasks in the list.
+     * @return A string representation of the task list.
+     */
     public String printList() {
         StringBuilder s = new StringBuilder(); // StringBuilder for efficiency
         int i = 1;
@@ -25,6 +32,10 @@ public class TaskList {
         return s.toString();
     }
 
+    /**
+     * Converts the list of tasks into a file-friendly format.
+     * @return A formatted string representing the tasks for storage.
+     */
     public String toFile() {
         StringBuilder s = new StringBuilder(); // StringBuilder for efficiency
         int i = 1;
@@ -38,12 +49,22 @@ public class TaskList {
         return s.toString();
     }
 
+    /**
+     * Checks if the given index is valid for accessing the task list.
+     * @param index The index to check.
+     * @throws IllegalArgumentException If the index is out of bounds.
+     */
     public void isIndexValid(int index) throws IllegalArgumentException {
         if (index <= 0 || index > list.size()) { // number out of range of list/ empty arg
             throw new IllegalArgumentException();
         }
     }
 
+    /**
+     * Marks a task as done at the specified index.
+     * @param index The index of the task to mark as done.
+     * @return A confirmation message.
+     */
     public String markTaskDone(int index) {
         try {
             isIndexValid(index);
@@ -53,6 +74,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as undone at the specified index.
+     * @param index The index of the task to mark as undone.
+     * @return A confirmation message.
+     */
     public String markTaskUndone(int index) {
         try {
             isIndexValid(index);
@@ -62,6 +88,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task at the specified index.
+     * @param index The index of the task to delete.
+     * @return A confirmation message.
+     */
     public String deleteTask(int index) {
         try {
             Task task = list.get(index - 1); // a little roundabout, might fix in the future
@@ -71,6 +102,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a new task to the list.
+     * @param task The task to add.
+     * @return A confirmation message.
+     */
     public String addTask(Task task) {
         return task.addTask(list);
     }

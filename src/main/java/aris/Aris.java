@@ -14,12 +14,20 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * The main class for the Aris chatbot application.
+ * It manages tasks and user interactions.
+ */
 public class Aris {
     protected Ui arisUi;
     protected TaskList list; // use of arraylist to store tasks
     protected Storage storage;
     Scanner userInput =  new Scanner(System.in); // scanner to read input
 
+    /**
+     * Constructs an Aris instance with the specified file path.
+     * @param filePath The file path for storing tasks.
+     */
     public Aris(String filePath) {
         this.list = new TaskList();
         this.storage = new Storage(filePath);
@@ -36,6 +44,9 @@ public class Aris {
         aris.run();
     }
 
+    /**
+     * Runs the chatbot loop, handling user input and executing commands.
+     */
     void run() {
         Ui arisUi = new Ui(); // UI for format messages
         arisUi.greet(); // greet
