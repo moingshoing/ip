@@ -1,5 +1,9 @@
 package aris;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
+
 import aris.command.Command;
 import aris.list.TaskList;
 import aris.parser.Parser;
@@ -10,10 +14,6 @@ import aris.task.Task;
 import aris.task.Todo;
 import aris.ui.Ui;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
-
 /**
  * The main class for the Aris chatbot application.
  * It manages tasks and user interactions.
@@ -22,7 +22,7 @@ public class Aris {
     protected Ui arisUi;
     protected TaskList list; // use of arraylist to store tasks
     protected Storage storage;
-    Scanner userInput =  new Scanner(System.in); // scanner to read input
+    private Scanner userInput = new Scanner(System.in); //scanner to read input
 
     /**
      * Constructs an Aris instance with the specified file path.
@@ -34,9 +34,9 @@ public class Aris {
         this.arisUi = new Ui();
         try {
             storage.loadFile(list);
-        } catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             arisUi.format("No file found ¯\\_(._.)_/¯");
-        } catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             arisUi.format("File corrupted ¯\\_(._.)_/¯");
         }
     }
@@ -53,8 +53,8 @@ public class Aris {
         Ui arisUi = new Ui();
         arisUi.greet(); // Greet
 
-        while(true) {
-            String input =  userInput.nextLine();
+        while (true) {
+            String input = userInput.nextLine();
             Command command = Parser.parseCommand(input);
             String argument = Parser.parseArgument(input);
 

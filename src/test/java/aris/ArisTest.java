@@ -1,14 +1,16 @@
 package aris;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import aris.list.TaskList;
 import aris.storage.Storage;
 import aris.task.Deadline;
 import aris.task.Event;
 import aris.task.Todo;
 import aris.ui.Ui;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ArisTest {
     protected Ui arisUi;
@@ -68,5 +70,6 @@ public class ArisTest {
     public void testIndexOutOfRange() {
         String actual = list.markTaskDone(4);
         String expected = "Number is out of range ¯\\_(._.)_/¯";
+        assertEquals(expected, actual);
     }
 }

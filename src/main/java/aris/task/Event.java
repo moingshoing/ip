@@ -29,10 +29,10 @@ public class Event extends Task {
 
     /**
      * Constructs an Event task from a description string.
-     * @param description The task description with a start time and an end time.
+     * @param fullDescription The task description with a start time and an end time.
      */
-    public Event(String description) {
-        String[] details = description.split(" /from ", 2);
+    public Event(String fullDescription) {
+        String[] details = fullDescription.split(" /from ", 2);
         this.description = details[0];
         String[] period = details[1].split(" /to ", 2);
         this.from = dateFormatter(period[0]);
@@ -51,12 +51,17 @@ public class Event extends Task {
         return "E | " + (isDone ? "1" : "0") + " | " + description + String.format(" | %s-%s", from, to);
     }
 
-    public String dateFormatter(String deadline) {
+    /**
+     * Formats a given date string into a human-readable format.
+     * @param unformattedDate The date string to format, expected in ISO format (yyyy-MM-dd).
+     * @return The formatted date as "MMM d yyyy" (e.g., Jan 1 2024), or the original string if parsing fails.
+     */
+    public String dateFormatter(String unformattedDate) {
         try {
-            LocalDate date = LocalDate.parse(deadline);
+            LocalDate date = LocalDate.parse(unformattedDate);
             return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         } catch (DateTimeParseException e) {
-            return deadline;
+            return unformattedDate;
         }
     }
 }

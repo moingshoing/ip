@@ -1,9 +1,9 @@
 package aris.list;
 
-import aris.task.Task;
-
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import aris.task.Task;
 
 /**
  * Represents a list of tasks and provides methods for manipulating tasks.
@@ -111,6 +111,11 @@ public class TaskList {
         return task.addTask(list);
     }
 
+    /**
+     * Finds tasks that contain the given keyword.
+     * @param keyword The keyword to search for within the task descriptions.
+     * @return A formatted string of tasks that contain the keyword, or a message if no results are found.
+     */
     public String findTask(String keyword) {
         StringBuilder s = new StringBuilder(); // StringBuilder for efficiency
         int i = 1;

@@ -18,7 +18,8 @@ public class Task {
     public String addTask(ArrayList<Task> list) {
         list.add(this);
         // add task to duke.txt
-        return String.format("Okei this task is added:\n%s\nYou now have %d task(s) in the list", status(), list.size());
+        return String.format("Okei this task is added:\n%s\nYou now have %d task(s) in the list",
+                status(), list.size());
     }
 
     /**
@@ -30,7 +31,8 @@ public class Task {
     public String delTask(ArrayList<Task> list, int index) {
         // del task from duke.txt
         list.remove(index - 1);
-        return String.format("Okei this task is deleted:\n%s\nYou now have %d task(s) in the list", status(), list.size());
+        return String.format("Okei this task is deleted:\n%s\nYou now have %d task(s) in the list",
+                status(), list.size());
     }
 
     /**
@@ -67,6 +69,11 @@ public class Task {
         return "Oh wow >:( Go finish this up:\n" + this.status();
     }
 
+    /**
+     * Checks if the task description contains the given keyword.
+     * @param k The keyword to search for.
+     * @return True if the description contains the keyword, otherwise false.
+     */
     public boolean containsKeyword(String k) {
         String keyword = k.toLowerCase();
         return this.description.contains(keyword);

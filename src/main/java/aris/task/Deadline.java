@@ -26,10 +26,10 @@ public class Deadline extends Task {
 
     /**
      * Constructs a Deadline task from a description string.
-     * @param description The task description with deadline.
+     * @param fullDescription The task description with deadline.
      */
-    public Deadline(String description) {
-        String[] details = description.split(" /by ", 2);
+    public Deadline(String fullDescription) {
+        String[] details = fullDescription.split(" /by ", 2);
         this.description = details[0];
         this.deadline = dateFormatter(details[1]);
         this.deadlineString = String.format(" (by: %s)", this.deadline);
@@ -46,6 +46,11 @@ public class Deadline extends Task {
         return "D | " + (isDone ? "1" : "0") + " | " + description + String.format(" | %s", deadline);
     }
 
+    /**
+     * Formats a given date string into a human-readable format.
+     * @param deadline The date string to format, expected in ISO format (yyyy-MM-dd).
+     * @return The formatted date as "MMM d yyyy" (e.g., Jan 1 2024), or the original string if parsing fails.
+     */
     public String dateFormatter(String deadline) {
         try {
             LocalDate date = LocalDate.parse(deadline);
