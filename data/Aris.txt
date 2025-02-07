@@ -1,3 +1,0 @@
-D | 0 | do hw | 2pm
-E | 1 | revise hw | Oct 10 2025-Oct 11 2025
-T | 0 | sleep

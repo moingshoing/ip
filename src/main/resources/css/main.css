@@ -1,6 +1,9 @@
 .root {
     main-color: rgb(237, 255, 242);
     -fx-background-color: main-color;
+    -fx-background-image: url("https://gifdb.com/images/high/what-meme-498-x-498-gif-nco98zm2zt1p38tg.gif");
+    -fx-background-position: center center;
+    -fx-background-size: cover;
 }
 
 .text-field {
@@ -23,7 +26,10 @@
     -fx-font-size: 20px;
 }
 
-.scroll-pane,
+.scroll-pane {
+    -fx-background-color: rgba(0,0,0,.5);
+}
+
 .scroll-pane .viewport {
     -fx-background-color: transparent;
 }

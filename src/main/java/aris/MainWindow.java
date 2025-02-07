@@ -24,7 +24,7 @@ public class MainWindow extends AnchorPane {
     private Aris aris;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/1.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/2.png"));
+    private Image arisImage = new Image(this.getClass().getResourceAsStream("/images/2.png"));
 
     @FXML
     public void initialize() {
@@ -47,7 +47,7 @@ public class MainWindow extends AnchorPane {
         String commandType = aris.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage, commandType)
+                DialogBox.getDukeDialog(response, arisImage, commandType)
         );
         userInput.clear();
     }
