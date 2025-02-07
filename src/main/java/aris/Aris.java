@@ -22,6 +22,7 @@ public class Aris {
     protected Ui arisUi;
     protected TaskList list; // use of arraylist to store tasks
     protected Storage storage;
+    private String commandType;
     private Scanner userInput = new Scanner(System.in); //scanner to read input
 
     /**
@@ -35,9 +36,9 @@ public class Aris {
         try {
             storage.loadFile(list);
         } catch (FileNotFoundException e) {
-            arisUi.format("No file found ¯\\_(._.)_/¯");
+            arisUi.format("No file found ~_~");
         } catch (IllegalArgumentException e) {
-            arisUi.format("File corrupted ¯\\_(._.)_/¯");
+            arisUi.format("File corrupted ~_~");
         }
     }
 
@@ -82,7 +83,7 @@ public class Aris {
                         arisUi.format(list.deleteTask(index));
                     }
                 } catch (NumberFormatException e) { // number is not entered after mark/unmark
-                    arisUi.format("This is not a number ¯\\_(._.)_/¯");
+                    arisUi.format("This is not a number ~_~");
                 }
                 break;
 
@@ -92,7 +93,7 @@ public class Aris {
                 // Fallthrough
             case EVENT:
                 if (argument.isEmpty()) { // empty argument
-                    arisUi.format("Try doing something instead ¯\\_(._.)_/¯");
+                    arisUi.format("Try doing something instead ~_~");
                     break;
                 }
                 Task task;
@@ -113,12 +114,12 @@ public class Aris {
             case UNKNOWN:
                 // Fallthrough
             default: // Any other text
-                arisUi.format("Sorry forgot to code this bit ¯\\_(._.)_/¯");
+                arisUi.format("Sorry forgot to code this bit ~_~");
             }
             try {
                 storage.saveFile(list);
             } catch (IOException e) {
-                arisUi.format("Something went wrong ¯\\_(._.)_/¯");
+                arisUi.format("Something went wrong ~_~");
             }
         }
     }
@@ -129,7 +130,12 @@ public class Aris {
     public String getResponse(String input) {
         Command c = Parser.parseCommand(input);
         String arg = Parser.parseArgument(input);
+        commandType = Command.getSimpleName(c);
         return execute(c, arg);
+    }
+
+    public String getCommandType() {
+        return commandType;
     }
 
     public String execute(Command command, String argument) {
@@ -158,7 +164,7 @@ public class Aris {
                     reply = arisUi.format(list.deleteTask(index));
                 }
             } catch (NumberFormatException e) { // number is not entered after mark/unmark
-                reply = arisUi.format("This is not a number ¯\\_(._.)_/¯");
+                reply = arisUi.format("This is not a number ~_~");
             }
             break;
 
@@ -168,7 +174,7 @@ public class Aris {
             // Fallthrough
         case EVENT:
             if (argument.isEmpty()) { // empty argument
-                reply = arisUi.format("Try doing something instead ¯\\_(._.)_/¯");
+                reply = arisUi.format("Try doing something instead ~_~");
                 break;
             }
             Task task;
@@ -188,12 +194,12 @@ public class Aris {
         case UNKNOWN:
             // Fallthrough
         default: // Any other text
-            reply = arisUi.format("Sorry forgot to code this bit ¯\\_(._.)_/¯");
+            reply = arisUi.format("Sorry forgot to code this bit ~_~");
         }
         try {
             storage.saveFile(list);
         } catch (IOException e) {
-            reply = arisUi.format("Something went wrong ¯\\_(._.)_/¯");
+            reply = arisUi.format("Something went wrong ~_~");
         }
         return reply;
     }

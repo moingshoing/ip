@@ -27,4 +27,25 @@ public enum Command {
             return UNKNOWN;
         }
     }
+
+    public static String getSimpleName(Command c) {
+        switch (c) {
+        case TODO:
+            // Fallthrough
+        case DEADLINE:
+            // Fallthrough
+        case EVENT:
+            return "AddCommand";
+        case MARK:
+            // Fallthrough
+        case UNMARK:
+            return "ChangeMarkCommand";
+        case DELETE:
+            return "DeleteCommand";
+        case FIND:
+            return "FindCommand";
+        default:
+            return "OtherCommand";
+        }
+    }
 }
