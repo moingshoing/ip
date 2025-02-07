@@ -122,4 +122,79 @@ public class Aris {
             }
         }
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        Command c = Parser.parseCommand(input);
+        String arg = Parser.parseArgument(input);
+        return execute(c, arg);
+    }
+
+    public String execute(Command command, String argument) {
+        String reply;
+        switch(command) {
+        case FIND:
+            reply = arisUi.format(list.findTask(argument));
+            break;
+
+        case LIST:
+            reply = arisUi.format(list.printList());
+            break;
+
+        case MARK:
+            // Fallthrough
+        case UNMARK:
+            // Fallthrough
+        case DELETE:
+            try {
+                int index = Integer.parseInt(argument);
+                if (command == Command.UNMARK) {
+                    reply = arisUi.format(list.markTaskUndone(index));
+                } else if (command == Command.MARK) {
+                    reply = arisUi.format(list.markTaskDone(index));
+                } else {
+                    reply = arisUi.format(list.deleteTask(index));
+                }
+            } catch (NumberFormatException e) { // number is not entered after mark/unmark
+                reply = arisUi.format("This is not a number ¯\\_(._.)_/¯");
+            }
+            break;
+
+        case TODO:
+            // Fallthrough
+        case DEADLINE:
+            // Fallthrough
+        case EVENT:
+            if (argument.isEmpty()) { // empty argument
+                reply = arisUi.format("Try doing something instead ¯\\_(._.)_/¯");
+                break;
+            }
+            Task task;
+            if (command == Command.TODO) {
+                task = new Todo(argument);
+            } else if (command == Command.DEADLINE) {
+                task = new Deadline(argument);
+            } else {
+                task = new Event(argument);
+            }
+            reply = arisUi.format(list.addTask(task));
+            break;
+
+        case BYE: // Exit program
+            reply = arisUi.exit();
+
+        case UNKNOWN:
+            // Fallthrough
+        default: // Any other text
+            reply = arisUi.format("Sorry forgot to code this bit ¯\\_(._.)_/¯");
+        }
+        try {
+            storage.saveFile(list);
+        } catch (IOException e) {
+            reply = arisUi.format("Something went wrong ¯\\_(._.)_/¯");
+        }
+        return reply;
+    }
 }
