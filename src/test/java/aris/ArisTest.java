@@ -69,7 +69,7 @@ public class ArisTest {
     @Test
     public void testIndexOutOfRange() {
         String actual = list.markTaskDone(4);
-        String expected = "Number is out of range ~_~";
+        String expected = "Number is out of range (ㆆ_ㆆ)";
         assertEquals(expected, actual);
     }
 }

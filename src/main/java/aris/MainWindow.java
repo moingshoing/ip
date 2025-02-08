@@ -23,8 +23,8 @@ public class MainWindow extends AnchorPane {
 
     private Aris aris;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/1.png"));
-    private Image arisImage = new Image(this.getClass().getResourceAsStream("/images/2.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpeg"));
+    private Image arisImage = new Image(this.getClass().getResourceAsStream("/images/aris.jpeg"));
 
     @FXML
     public void initialize() {
@@ -34,6 +34,9 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setAris(Aris a) {
         aris = a;
+        dialogContainer.getChildren()
+                .add(DialogBox
+                        .getDukeDialog(a.arisUi.greet(), arisImage, "greet"));
     }
 
     /**

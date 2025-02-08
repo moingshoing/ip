@@ -8,9 +8,16 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * The Main class initializes and starts the JavaFX application.
+ */
 public class Main extends Application {
     private Aris aris = new Aris("./data/Aris.txt");
 
+    /**
+     * Starts the JavaFX application by setting up the primary stage.
+     * @param stage The primary stage for this application.
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -22,7 +29,7 @@ public class Main extends Application {
             stage.setMinHeight(220);
             stage.setMinWidth(417);
 
-            fxmlLoader.<MainWindow>getController().setAris(aris);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setAris(aris); // inject the Duke instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

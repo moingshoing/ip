@@ -13,6 +13,9 @@ import aris.task.Event;
 import aris.task.Task;
 import aris.task.Todo;
 import aris.ui.Ui;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
 
 /**
  * The main class for the Aris chatbot application.
@@ -36,91 +39,9 @@ public class Aris {
         try {
             storage.loadFile(list);
         } catch (FileNotFoundException e) {
-            arisUi.format("No file found ~_~");
+            arisUi.format("No file found (ㆆ_ㆆ)");
         } catch (IllegalArgumentException e) {
-            arisUi.format("File corrupted ~_~");
-        }
-    }
-
-    public static void main(String[] args) {
-        Aris aris = new Aris("./data/Aris.txt");
-        aris.run();
-    }
-
-    /**
-     * Runs the chatbot loop, handling user input and executing commands.
-     */
-    void run() {
-        Ui arisUi = new Ui();
-        arisUi.greet(); // Greet
-
-        while (true) {
-            String input = userInput.nextLine();
-            Command command = Parser.parseCommand(input);
-            String argument = Parser.parseArgument(input);
-
-            switch(command) {
-            case FIND:
-                arisUi.format(list.findTask(argument));
-                break;
-
-            case LIST:
-                arisUi.format(list.printList());
-                break;
-
-            case MARK:
-                // Fallthrough
-            case UNMARK:
-                // Fallthrough
-            case DELETE:
-                try {
-                    int index = Integer.parseInt(argument);
-                    if (command == Command.UNMARK) {
-                        arisUi.format(list.markTaskUndone(index));
-                    } else if (command == Command.MARK) {
-                        arisUi.format(list.markTaskDone(index));
-                    } else {
-                        arisUi.format(list.deleteTask(index));
-                    }
-                } catch (NumberFormatException e) { // number is not entered after mark/unmark
-                    arisUi.format("This is not a number ~_~");
-                }
-                break;
-
-            case TODO:
-                // Fallthrough
-            case DEADLINE:
-                // Fallthrough
-            case EVENT:
-                if (argument.isEmpty()) { // empty argument
-                    arisUi.format("Try doing something instead ~_~");
-                    break;
-                }
-                Task task;
-                if (command == Command.TODO) {
-                    task = new Todo(argument);
-                } else if (command == Command.DEADLINE) {
-                    task = new Deadline(argument);
-                } else {
-                    task = new Event(argument);
-                }
-                arisUi.format(list.addTask(task));
-                break;
-
-            case BYE: // Exit program
-                arisUi.exit();
-                return;
-
-            case UNKNOWN:
-                // Fallthrough
-            default: // Any other text
-                arisUi.format("Sorry forgot to code this bit ~_~");
-            }
-            try {
-                storage.saveFile(list);
-            } catch (IOException e) {
-                arisUi.format("Something went wrong ~_~");
-            }
+            arisUi.format("File corrupted (ㆆ_ㆆ)");
         }
     }
 
@@ -134,10 +55,20 @@ public class Aris {
         return execute(c, arg);
     }
 
+    /**
+     * Retrieves the type of command being executed.
+     * @return The type of the command as a string.
+     */
     public String getCommandType() {
         return commandType;
     }
 
+    /**
+     * Executes the given command with the provided argument.
+     * @param command The command to execute.
+     * @param argument The argument associated with the command.
+     * @return A formatted response based on the command execution.
+     */
     public String execute(Command command, String argument) {
         String reply;
         switch(command) {
@@ -164,7 +95,7 @@ public class Aris {
                     reply = arisUi.format(list.deleteTask(index));
                 }
             } catch (NumberFormatException e) { // number is not entered after mark/unmark
-                reply = arisUi.format("This is not a number ~_~");
+                reply = arisUi.format("This is not a number (ㆆ_ㆆ)");
             }
             break;
 
@@ -174,7 +105,7 @@ public class Aris {
             // Fallthrough
         case EVENT:
             if (argument.isEmpty()) { // empty argument
-                reply = arisUi.format("Try doing something instead ~_~");
+                reply = arisUi.format("Try doing something instead (ㆆ_ㆆ)");
                 break;
             }
             Task task;
@@ -191,15 +122,22 @@ public class Aris {
         case BYE: // Exit program
             reply = arisUi.exit();
 
+            // delay exit by 2 seconds
+            PauseTransition delay = new PauseTransition(Duration.seconds(2));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
+
+            break;
+
         case UNKNOWN:
             // Fallthrough
         default: // Any other text
-            reply = arisUi.format("Sorry forgot to code this bit ~_~");
+            reply = arisUi.format("Sorry forgot to code this bit (ㆆ_ㆆ)");
         }
         try {
             storage.saveFile(list);
         } catch (IOException e) {
-            reply = arisUi.format("Something went wrong ~_~");
+            reply = arisUi.format("Something went wrong (ㆆ_ㆆ)");
         }
         return reply;
     }

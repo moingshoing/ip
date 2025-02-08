@@ -70,7 +70,7 @@ public class TaskList {
             isIndexValid(index);
             return list.get(index - 1).markDone();
         } catch (IllegalArgumentException e) {
-            return "Number is out of range ~_~";
+            return "Number is out of range (ㆆ_ㆆ)";
         }
     }
 
@@ -84,7 +84,7 @@ public class TaskList {
             isIndexValid(index);
             return list.get(index - 1).markUndone();
         } catch (IllegalArgumentException e) {
-            return "Number is out of range ~_~";
+            return "Number is out of range (ㆆ_ㆆ)";
         }
     }
 
@@ -98,7 +98,7 @@ public class TaskList {
             Task task = list.get(index - 1); // a little roundabout, might fix in the future
             return task.delTask(list, index);
         } catch (IllegalArgumentException e) {
-            return "Number is out of range ~_~";
+            return "Number is out of range (ㆆ_ㆆ)";
         }
     }
 
@@ -130,7 +130,7 @@ public class TaskList {
         }
 
         if (s.toString().isEmpty()) {
-            return "No results found ~_~";
+            return "No results found (ㆆ_ㆆ)";
         }
         return s.toString();
     }
