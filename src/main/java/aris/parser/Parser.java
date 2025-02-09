@@ -1,5 +1,7 @@
 package aris.parser;
 
+import java.util.Set;
+
 import aris.command.Command;
 
 /**
@@ -15,6 +17,11 @@ public class Parser {
     public static Command parseCommand(String input) {
         String[] parts = input.split(" ", 2); // split command and argument
         String commandStr = parts[0];
+
+        if (Set.of("hi", "hey", "hello").contains(commandStr.toLowerCase())) {
+            return Command.convert("greet");
+        }
+
         return Command.convert(commandStr); // convert to enum
     }
 

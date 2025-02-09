@@ -128,6 +128,9 @@ public class Aris {
             delay.play();
 
             break;
+        case GREET:
+            reply = arisUi.format("|･ω･｀) < hello.");
+            break;
 
         case UNKNOWN:
             // Fallthrough
