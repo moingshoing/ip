@@ -22,10 +22,12 @@ public class TaskList {
      * @return A string representation of the task list.
      */
     public String printList() {
+        assert list != null : "Task list should not be null";
         StringBuilder s = new StringBuilder(); // StringBuilder for efficiency
         int i = 1;
         for (Iterator<Task> it = list.iterator(); it.hasNext(); i++) {
             Task item = it.next();
+            assert item != null : "Task should not be null";
             s.append(i).append(".").append(item.status());
             if (it.hasNext()) { // line break except for last item; for formatting purposes
                 s.append("\n");
@@ -39,10 +41,12 @@ public class TaskList {
      * @return A formatted string representing the tasks for storage.
      */
     public String toFile() {
+        assert list != null : "Task list should not be null";
         StringBuilder s = new StringBuilder(); // StringBuilder for efficiency
         int i = 1;
         for (Iterator<Task> it = list.iterator(); it.hasNext(); i++) {
             Task item = it.next();
+            assert item != null : "Task should not be null";
             s.append(item.fileFormat());
             if (it.hasNext()) { // line break except for last item; for formatting purposes
                 s.append("\n");
@@ -68,8 +72,10 @@ public class TaskList {
      * @return A confirmation message.
      */
     public String markTaskDone(int index) {
+        assert list != null : "Task list should not be null";
         try {
             isIndexValid(index);
+            assert list.get(index - 1) != null : "Task at index should not be null";
             return list.get(index - 1).markDone();
         } catch (IllegalArgumentException e) {
             return NUMBER_OUT_OF_RANGE;
@@ -82,8 +88,10 @@ public class TaskList {
      * @return A confirmation message.
      */
     public String markTaskUndone(int index) {
+        assert list != null : "Task list should not be null";
         try {
             isIndexValid(index);
+            assert list.get(index - 1) != null : "Task at index should not be null";
             return list.get(index - 1).markUndone();
         } catch (IllegalArgumentException e) {
             return NUMBER_OUT_OF_RANGE;
@@ -96,8 +104,11 @@ public class TaskList {
      * @return A confirmation message.
      */
     public String deleteTask(int index) {
+        assert list != null : "Task list should not be null";
         try {
-            Task task = list.get(index - 1); // a little roundabout, might fix in the future
+            isIndexValid(index);
+            Task task = list.get(index - 1);
+            assert task != null : "Task to be deleted should not be null";
             return task.delTask(list, index);
         } catch (IllegalArgumentException e) {
             return NUMBER_OUT_OF_RANGE;
@@ -119,6 +130,8 @@ public class TaskList {
      * @return A formatted string of tasks that contain the keyword, or a message if no results are found.
      */
     public String findTask(String keyword) {
+        assert list != null : "Task list should not be null";
+        assert keyword != null : "Keyword should not be null";
         StringBuilder s = new StringBuilder(); // StringBuilder for efficiency
         int i = 1;
         for (Iterator<Task> it = list.iterator(); it.hasNext(); i++) {

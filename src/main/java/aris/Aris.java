@@ -143,6 +143,7 @@ public class Aris {
         } catch (IOException e) {
             return arisUi.format(ERROR_GENERIC);
         }
+        assert !reply.isEmpty() : "Reply message should not be empty";
         return reply;
     }
 }
