@@ -2,7 +2,6 @@ package aris;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
 
 import aris.command.Command;
 import aris.list.TaskList;
@@ -127,9 +126,11 @@ public class Aris {
      */
     private String handleExit() {
         String reply = arisUi.exit();
+
         PauseTransition delay = new PauseTransition(Duration.seconds(2));
         delay.setOnFinished(event -> Platform.exit());
         delay.play();
+
         return reply;
     }
 
