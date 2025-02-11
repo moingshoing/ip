@@ -142,6 +142,7 @@ public class Aris {
         } catch (IOException e) {
             reply = arisUi.format("Something went wrong (ㆆ_ㆆ)");
         }
+        assert !reply.isEmpty() : "Reply message should not be empty";
         return reply;
     }
 }
