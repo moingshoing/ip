@@ -9,6 +9,8 @@ import aris.task.Task;
  * Represents a list of tasks and provides methods for manipulating tasks.
  */
 public class TaskList {
+    final String NUMBER_OUT_OF_RANGE = "Number is out of range (ㆆ_ㆆ)";
+    final String NO_RESULTS_FOUND = "No results found (ㆆ_ㆆ)";
     private ArrayList<Task> list;
 
     public TaskList() {
@@ -70,7 +72,7 @@ public class TaskList {
             isIndexValid(index);
             return list.get(index - 1).markDone();
         } catch (IllegalArgumentException e) {
-            return "Number is out of range (ㆆ_ㆆ)";
+            return NUMBER_OUT_OF_RANGE;
         }
     }
 
@@ -84,7 +86,7 @@ public class TaskList {
             isIndexValid(index);
             return list.get(index - 1).markUndone();
         } catch (IllegalArgumentException e) {
-            return "Number is out of range (ㆆ_ㆆ)";
+            return NUMBER_OUT_OF_RANGE;
         }
     }
 
@@ -98,7 +100,7 @@ public class TaskList {
             Task task = list.get(index - 1); // a little roundabout, might fix in the future
             return task.delTask(list, index);
         } catch (IllegalArgumentException e) {
-            return "Number is out of range (ㆆ_ㆆ)";
+            return NUMBER_OUT_OF_RANGE;
         }
     }
 
@@ -130,7 +132,7 @@ public class TaskList {
         }
 
         if (s.toString().isEmpty()) {
-            return "No results found (ㆆ_ㆆ)";
+            return NO_RESULTS_FOUND;
         }
         return s.toString();
     }
