@@ -22,11 +22,18 @@ import javafx.util.Duration;
  * It manages tasks and user interactions.
  */
 public class Aris {
+    private static final String ERROR_NUMBER = "This is not a number (ㆆ_ㆆ)";
+    private static final String ERROR_UNKNOWN = "Sorry forgot to code this bit (ㆆ_ㆆ)";
+    private static final String ERROR_GENERIC = "Something went wrong (ㆆ_ㆆ)";
+    private static final String ERROR_NO_FILE = "No file found (ㆆ_ㆆ)";
+    private static final String ERROR_CORRUPTED_FILE = "File corrupted (ㆆ_ㆆ)";
+    private static final String ERROR_EMPTY_ARGUMENT = "Try doing something instead (ㆆ_ㆆ)";
+    private static final String GREETING_MESSAGE = "|･ω･｀) < hello.";
+
     protected Ui arisUi;
     protected TaskList list; // use of arraylist to store tasks
     protected Storage storage;
     private String commandType;
-    private Scanner userInput = new Scanner(System.in); //scanner to read input
 
     /**
      * Constructs an Aris instance with the specified file path.
@@ -39,9 +46,9 @@ public class Aris {
         try {
             storage.loadFile(list);
         } catch (FileNotFoundException e) {
-            arisUi.format("No file found (ㆆ_ㆆ)");
+            arisUi.format(ERROR_NO_FILE);
         } catch (IllegalArgumentException e) {
-            arisUi.format("File corrupted (ㆆ_ㆆ)");
+            arisUi.format(ERROR_CORRUPTED_FILE);
         }
     }
 
@@ -49,10 +56,10 @@ public class Aris {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        Command c = Parser.parseCommand(input);
-        String arg = Parser.parseArgument(input);
-        commandType = Command.getSimpleName(c);
-        return execute(c, arg);
+        Command command = Parser.parseCommand(input);
+        String argument = Parser.parseArgument(input);
+        commandType = Command.getSimpleName(command);
+        return execute(command, argument);
     }
 
     /**
@@ -70,77 +77,70 @@ public class Aris {
      * @return A formatted response based on the command execution.
      */
     public String execute(Command command, String argument) {
-        String reply;
-        switch(command) {
-        case FIND:
-            reply = arisUi.format(list.findTask(argument));
-            break;
+        String reply = switch (command) {
+            case FIND -> arisUi.format(list.findTask(argument));
+            case LIST -> arisUi.format(list.printList());
+            case MARK, UNMARK, DELETE -> handleTaskModification(command, argument);
+            case TODO, DEADLINE, EVENT -> handleTaskCreation(command, argument);
+            case BYE -> handleExit();
+            case GREET -> arisUi.format(GREETING_MESSAGE);
+            default -> arisUi.format(ERROR_UNKNOWN);
+        };
+        return saveAndReturnReply(reply);
+    }
 
-        case LIST:
-            reply = arisUi.format(list.printList());
-            break;
-
-        case MARK:
-            // Fallthrough
-        case UNMARK:
-            // Fallthrough
-        case DELETE:
-            try {
-                int index = Integer.parseInt(argument);
-                if (command == Command.UNMARK) {
-                    reply = arisUi.format(list.markTaskUndone(index));
-                } else if (command == Command.MARK) {
-                    reply = arisUi.format(list.markTaskDone(index));
-                } else {
-                    reply = arisUi.format(list.deleteTask(index));
-                }
-            } catch (NumberFormatException e) { // number is not entered after mark/unmark
-                reply = arisUi.format("This is not a number (ㆆ_ㆆ)");
-            }
-            break;
-
-        case TODO:
-            // Fallthrough
-        case DEADLINE:
-            // Fallthrough
-        case EVENT:
-            if (argument.isEmpty()) { // empty argument
-                reply = arisUi.format("Try doing something instead (ㆆ_ㆆ)");
-                break;
-            }
-            Task task;
-            if (command == Command.TODO) {
-                task = new Todo(argument);
-            } else if (command == Command.DEADLINE) {
-                task = new Deadline(argument);
-            } else {
-                task = new Event(argument);
-            }
-            reply = arisUi.format(list.addTask(task));
-            break;
-
-        case BYE: // Exit program
-            reply = arisUi.exit();
-
-            // delay exit by 2 seconds
-            PauseTransition delay = new PauseTransition(Duration.seconds(2));
-            delay.setOnFinished(event -> Platform.exit());
-            delay.play();
-
-            break;
-        case GREET:
-            reply = arisUi.format("|･ω･｀) < hello.");
-            break;
-
-        case UNKNOWN:
-            // Fallthrough
-        default: // Any other text
-            reply = arisUi.format("Sorry forgot to code this bit (ㆆ_ㆆ)");
+    /**
+     * Handles marking, unmarking, and deleting tasks.
+     */
+    private String handleTaskModification(Command command, String argument) {
+        try {
+            int index = Integer.parseInt(argument);
+            return switch (command) {
+                case UNMARK -> arisUi.format(list.markTaskUndone(index));
+                case MARK -> arisUi.format(list.markTaskDone(index));
+                case DELETE -> arisUi.format(list.deleteTask(index));
+                default -> throw new IllegalStateException("Unexpected value: " + command);
+            };
+        } catch (NumberFormatException e) {
+            return arisUi.format(ERROR_NUMBER);
         }
+    }
+
+    /**
+     * Handles adding TODO, DEADLINE, and EVENT tasks.
+     */
+    private String handleTaskCreation(Command command, String argument) {
+        if (argument.isEmpty()) {
+            return arisUi.format(ERROR_EMPTY_ARGUMENT);
+        }
+        Task task = switch (command) {
+            case TODO -> new Todo(argument);
+            case DEADLINE -> new Deadline(argument);
+            case EVENT -> new Event(argument);
+            default -> throw new IllegalStateException("Unexpected value: " + command);
+        };
+        return arisUi.format(list.addTask(task));
+    }
+
+    /**
+     * Handles the exit process with a delay.
+     */
+    private String handleExit() {
+        String reply = arisUi.exit();
+        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
+        return reply;
+    }
+
+    /**
+     * Saves the task list to storage and returns the reply.
+     */
+    private String saveAndReturnReply(String reply) {
         try {
             storage.saveFile(list);
         } catch (IOException e) {
-            reply = arisUi.format("Something went wrong (ㆆ_ㆆ)");
+            return arisUi.format(ERROR_GENERIC);
         }
         return reply;
     }
