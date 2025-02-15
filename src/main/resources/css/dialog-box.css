@@ -17,13 +17,13 @@
 }
 
 .add-label {
-    -fx-border-color: ##50C878;
+    -fx-border-color: #50C878;
     -fx-background-color: #50C878;
     -fx-text-fill: black;
 }
 
 .marked-label {
-    -fx-border-color: ##50C878;
+    -fx-border-color: #50C878;
     -fx-background-color: #50C878;
     -fx-text-fill: black;
 }
@@ -35,7 +35,7 @@
 }
 
 .find-label {
-    -fx-border-color: ##50C878;
+    -fx-border-color: #50C878;
     -fx-background-color: #50C878;
     -fx-text-fill: black;
 }

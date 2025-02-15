@@ -12,10 +12,10 @@ import aris.task.Event;
 import aris.task.Task;
 import aris.task.Todo;
 import aris.ui.Ui;
+import aris.ui.HelpWindow;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -158,14 +158,24 @@ public class Aris {
      */
     private String openHelpWindow() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/help.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/HelpWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
+
+            HelpWindow controller = fxmlLoader.getController();
+            if (controller == null) {
+                System.err.println("Error: HelpWindow controller is NULL.");
+                return "Error: Help window could not be loaded.";
+            }
+
             Stage helpStage = new Stage();
             helpStage.setTitle("Help");
             helpStage.setScene(new Scene(ap));
+
+            controller.setStage(helpStage);
             helpStage.show();
             return "Opening Help Window...";
         } catch (IOException e) {
+            e.printStackTrace();
             return "Unable to load Help window.";
         }
     }

@@ -1,17 +1,18 @@
 package aris.ui;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class HelpController extends AnchorPane {
+public class HelpWindow {
     @FXML
     private TextArea helpText;
 
-    /**
-     * Initializes the Help page.
-     */
+    private Stage stage;
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
     @FXML
     public void initialize() {
         helpText.setText("""
@@ -28,11 +29,10 @@ public class HelpController extends AnchorPane {
         """);
     }
 
-    /**
-     * Closes the Help window.
-     */
-    public void closeHelp() {
-        Stage stage = (Stage) helpText.getScene().getWindow();
-        stage.close();
+    @FXML
+    private void handleClose() {
+        if (stage != null) {
+            stage.close();
+        }
     }
 }
