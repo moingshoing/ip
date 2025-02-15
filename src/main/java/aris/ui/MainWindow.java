@@ -37,7 +37,10 @@ public class MainWindow extends AnchorPane {
         aris = a;
         dialogContainer.getChildren()
                 .add(DialogBox
-                        .getDukeDialog(a.getUi().greet(), arisImage, "greet"));
+                        .getArisDialog(a.getUi().greet(), arisImage, "greet"));
+        dialogContainer.getChildren()
+                .add(DialogBox
+                        .getArisDialog("Lost? Just type 'help' to get started!", arisImage, "unknown"));
     }
 
     /**
@@ -51,7 +54,7 @@ public class MainWindow extends AnchorPane {
         String commandType = aris.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, arisImage, commandType)
+                DialogBox.getArisDialog(response, arisImage, commandType)
         );
         userInput.clear();
     }
