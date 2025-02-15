@@ -12,8 +12,13 @@ import aris.task.Event;
 import aris.task.Task;
 import aris.task.Todo;
 import aris.ui.Ui;
+import aris.ui.HelpWindow;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -77,6 +82,7 @@ public class Aris {
      */
     public String execute(Command command, String argument) {
         String reply = switch (command) {
+            case HELP -> arisUi.format(openHelpWindow());
             case FIND -> arisUi.format(list.findTask(argument));
             case LIST -> arisUi.format(list.printList());
             case MARK, UNMARK, DELETE -> handleTaskModification(command, argument);
@@ -145,5 +151,36 @@ public class Aris {
         }
         assert !reply.isEmpty() : "Reply message should not be empty";
         return reply;
+    }
+
+    /**
+     * Opens the Help window.
+     */
+    private String openHelpWindow() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/HelpWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+
+            HelpWindow controller = fxmlLoader.getController();
+            if (controller == null) {
+                System.err.println("Error: HelpWindow controller is NULL.");
+                return "Error: Help window could not be loaded.";
+            }
+
+            Stage helpStage = new Stage();
+            helpStage.setTitle("Help");
+            helpStage.setScene(new Scene(ap));
+
+            controller.setStage(helpStage);
+            helpStage.show();
+            return "Opening Help Window...";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "Unable to load Help window.";
+        }
+    }
+
+    public Ui getUi() {
+        return arisUi;
     }
 }

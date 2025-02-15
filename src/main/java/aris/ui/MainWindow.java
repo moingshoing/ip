@@ -1,5 +1,6 @@
-package aris;
+package aris.ui;
 
+import aris.Aris;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -31,16 +32,16 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Aris instance */
     public void setAris(Aris a) {
         aris = a;
         dialogContainer.getChildren()
                 .add(DialogBox
-                        .getDukeDialog(a.arisUi.greet(), arisImage, "greet"));
+                        .getDukeDialog(a.getUi().greet(), arisImage, "greet"));
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Aris' reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML

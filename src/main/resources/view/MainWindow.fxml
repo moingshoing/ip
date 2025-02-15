@@ -15,7 +15,7 @@
             stylesheets="@../css/main.css"
             xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="aris.MainWindow">
+            fx:controller="aris.ui.MainWindow">
     <children>
         <TextField fx:id="userInput"
                    layoutY="558.0"

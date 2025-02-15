@@ -1,4 +1,4 @@
-package aris;
+package aris.ui;
 
 import java.io.IOException;
 import java.util.Collections;
