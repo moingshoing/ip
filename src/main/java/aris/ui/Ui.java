@@ -4,15 +4,12 @@ package aris.ui;
  * Handles user interaction and formatting of system messages.
  */
 public class Ui {
-    private String hline = "____________________________________________________________\n";
-
     /**
      * Formats and prints a message with a horizontal line.
      * @param s The message to format and print.
      */
     public String format(String s) {
         return s + "\n";
-        // System.out.println(hline + s + "\n");
     }
 
     /**
