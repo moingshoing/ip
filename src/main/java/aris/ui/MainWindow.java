@@ -38,9 +38,6 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren()
                 .add(DialogBox
                         .getArisDialog(a.getUi().greet(), arisImage, "greet"));
-        dialogContainer.getChildren()
-                .add(DialogBox
-                        .getArisDialog("Lost? Just type 'help' to get started!", arisImage, "unknown"));
     }
 
     /**

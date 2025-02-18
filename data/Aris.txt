@@ -2,3 +2,4 @@ T | 0 | sleep
 D | 0 | eat | 6pm
 E | 0 | eat with family | 8pm-10pm
 T | 1 | eat hw
+D | 0 | CS2103T iP | Feb 21 2025

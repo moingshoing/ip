@@ -16,7 +16,9 @@ public class Ui {
      * Displays a greeting message to the user.
      */
     public String greet() {
-        return format("Hello! I'm Aris!\n|･ω･｀) < hi.");
+        return format("Hello! I'm Aris!\n" +
+                "|･ω･｀) < hi.\n" +
+                "Lost? Just type 'help' to get started!");
     }
 
     /**
