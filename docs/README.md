@@ -1,30 +1,33 @@
-# Duke User Guide
+# Aris User Guide
 
-// Update the title above to match the actual product name
+![Ui.png](Ui.png)
 
-// Product screenshot goes here
+Please look at my chatbot that I made :D
 
-// Product intro goes here
+## Adding tasks
 
-## Adding deadlines
+>Want to do a task? Add a todo task!
 
-// Describe the action and its outcome.
+Example: `todo hw`
 
-// Give examples of usage
+>Forgetting your deadlines? Add a deadline task!
 
-Example: `keyword (optional arguments)`
+Example: `deadline hw /by Fri 2359`
 
-// A description of the expected outcome goes here
+>Need to focus? Add an event task!
 
-```
-expected output
-```
+Example: `event hw /from 1pm /to 2pm`
 
-## Feature ABC
+## Delete, Mark, and take charge of your tasks!
 
-// Feature details
+>Done with your task? Mark it!
 
+Example: `mark 1`
 
-## Feature XYZ
+>Don't want to see your task? Delete it!
 
-// Feature details
+Example: `delete 1`
+
+>Want to see your current tasks? List them!
+
+Example: `list`
