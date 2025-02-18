@@ -26,6 +26,7 @@ public class HelpWindow {
         find X → Search tasks containing X
         bye → Exit the application
         help → Show this help page
+        suisei -> Send a random Suisei video
         """);
     }
 
