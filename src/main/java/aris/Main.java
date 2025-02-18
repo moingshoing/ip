@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  * The Main class initializes and starts the JavaFX application.
  */
 public class Main extends Application {
-    private Aris aris = new Aris("./data/Aris.txt");
+    private Aris aris = new Aris(getHostServices(), "./data/Aris.txt");
 
     /**
      * Starts the JavaFX application by setting up the primary stage.

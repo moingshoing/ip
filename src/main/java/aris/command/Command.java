@@ -15,6 +15,7 @@ public enum Command {
     BYE,
     GREET,
     HELP,
+    PUNCH,
     UNKNOWN; // unknown command
 
     /**

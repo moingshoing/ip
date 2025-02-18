@@ -20,6 +20,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.application.HostServices;
+
+import javax.swing.*;
 
 /**
  * The main class for the Aris chatbot application.
@@ -38,15 +41,17 @@ public class Aris {
     protected TaskList list; // use of arraylist to store tasks
     protected Storage storage;
     private String commandType;
+    private HostServices hostServices;
 
     /**
      * Constructs an Aris instance with the specified file path.
      * @param filePath The file path for storing tasks.
      */
-    public Aris(String filePath) {
+    public Aris(HostServices hostServices, String filePath) {
         this.list = new TaskList();
         this.storage = new Storage(filePath);
         this.arisUi = new Ui();
+        this.hostServices = hostServices;
         try {
             storage.loadFile(list);
         } catch (FileNotFoundException e) {
@@ -89,9 +94,21 @@ public class Aris {
             case TODO, DEADLINE, EVENT -> handleTaskCreation(command, argument);
             case BYE -> handleExit();
             case GREET -> arisUi.format(GREETING_MESSAGE);
+            case PUNCH -> arisUi.format(sendPunch());
             default -> arisUi.format(ERROR_UNKNOWN);
         };
         return saveAndReturnReply(reply);
+    }
+
+    private String sendPunch() {
+        String punchVideoUrl = "https://youtu.be/g1bZIOA1KBQ?si=wLFN_kq92vJY7i5c";
+
+        if (hostServices != null) {
+            hostServices.showDocument(punchVideoUrl);
+            return "SUISEI PUNCH";
+        } else {
+            return "Oops! Couldn't open the video.";
+        }
     }
 
     /**
