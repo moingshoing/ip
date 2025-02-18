@@ -2,6 +2,7 @@ package aris;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Random;
 
 import aris.command.Command;
 import aris.list.TaskList;
@@ -36,6 +37,15 @@ public class Aris {
     private static final String ERROR_CORRUPTED_FILE = "File corrupted (ㆆ_ㆆ)";
     private static final String ERROR_EMPTY_ARGUMENT = "Try doing something instead (ㆆ_ㆆ)";
     private static final String GREETING_MESSAGE = "|･ω･｀) < hello.";
+    private static final String[] SUISEI_VIDEOS = {
+            "https://youtu.be/_RPkBzv2jYc?si=6uvxulUZpQO4kPGI",
+            "https://youtu.be/SDCb3OEcE-c?si=UvG34_eeLqTUUjPo",
+            "https://youtu.be/hhTbzrs-vRs?si=yymelgkHJNEv4sDH",
+            "https://youtu.be/q8g00Z_Xavk?si=lfHCIaLYqy1gyj23",
+            "https://youtu.be/lhh_uFOqwh8?si=xWbUYL96y7Rlg8l9",
+            "https://youtu.be/dcqbOsDmbWA?si=oSMx3jwlJuX5TJNB",
+            "https://youtu.be/g1bZIOA1KBQ?si=wLFN_kq92vJY7i5c"
+    };
 
     protected Ui arisUi;
     protected TaskList list; // use of arraylist to store tasks
@@ -94,18 +104,19 @@ public class Aris {
             case TODO, DEADLINE, EVENT -> handleTaskCreation(command, argument);
             case BYE -> handleExit();
             case GREET -> arisUi.format(GREETING_MESSAGE);
-            case PUNCH -> arisUi.format(sendPunch());
+            case SUISEI -> arisUi.format(sendSuisei());
             default -> arisUi.format(ERROR_UNKNOWN);
         };
         return saveAndReturnReply(reply);
     }
 
-    private String sendPunch() {
-        String punchVideoUrl = "https://youtu.be/g1bZIOA1KBQ?si=wLFN_kq92vJY7i5c";
+    private String sendSuisei() {
+        Random random = new Random();
+        String suiseiVideoUrl = SUISEI_VIDEOS[random.nextInt(SUISEI_VIDEOS.length)];
 
         if (hostServices != null) {
-            hostServices.showDocument(punchVideoUrl);
-            return "SUISEI PUNCH";
+            hostServices.showDocument(suiseiVideoUrl);
+            return "Ask for Suisei and you shall receive.";
         } else {
             return "Oops! Couldn't open the video.";
         }
