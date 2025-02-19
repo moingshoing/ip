@@ -7,19 +7,19 @@
 ---
 
 ## 📋 Available Commands
-| Command                            | Description                               | Example                                           |
-|------------------------------------|-------------------------------------------|---------------------------------------------------|
-| `list`                             | Displays all tasks                        | `list`                                            |
-| `todo <task>`                      | Adds a new To-Do task                     | `todo Buy milk`                                   |
-| `deadline <task> /by <date>`	      | Adds a task with a deadline	              | `deadline Project /by 2025-02-20`                 |
-| `event <task> /from <date> /to <date>` | Adds an event task                        | 	`event Concert /from 2025-03-01 /to 2025-03-02 ` |
-| `mark <index>`                     | Marks a task as completed	                | `mark 1 `                                         |
-| `unmark <index>`                   | Marks a task as incomplete	               | `unmark 1 `                                       |
-| `delete <index>`                   | Deletes a task	                           | `delete 2 `                                       |
-| `find <keyword>`	                  | Searches for tasks containing the keyword	 | `find milk  `                                     |
-| `bye`	                             | Exits the chatbot	                        | `bye  `                                           |
-| `help`	                            | Opens the Help Window                     | 	`help  `                                         |
-| `suisei`	                          | Opens a random Suisei YouTube video       | 	`suisei  `                                       |
+| Command                                | Description                                | Example                                           |
+|----------------------------------------|--------------------------------------------|---------------------------------------------------|
+| `list`                                 | Displays all tasks                         | `list`                                            |
+| `todo <task>`                          | Adds a new To-Do task                      | `todo Buy milk`                                   |
+| `deadline <task> /by <date>`	          | Adds a task with a deadline	               | `deadline Project /by 2025-02-20`                 |
+| `event <task> /from <date> /to <date>` | Adds an event task                         | 	`event Concert /from 2025-03-01 /to 2025-03-02 ` |
+| `mark <index>`                         | Marks a task as completed	                 | `mark 1 `                                         |
+| `unmark <index>`                       | Marks a task as incomplete	                | `unmark 1 `                                       |
+| `delete <index>`                       | Deletes a task	                            | `delete 2 `                                       |
+| `find <keyword>`	                      | Searches for tasks containing the keyword	 | `find milk  `                                     |
+| `bye`	                                 | Exits the chatbot	                         | `bye  `                                           |
+| `help`	                                | Opens the Help Window                      | 	`help  `                                         |
+| `suisei`	                              | Opens a random Suisei YouTube video        | 	`suisei  `                                       |
 
 ---
 
